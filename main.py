@@ -34,14 +34,9 @@ def launch_request_handler(clova_request):
 
 # callNumberIntentが解析されたら実行
 @clova.handle.intent("BabyIntent")
-def number_handler(clova_request):
+def send_response(clova_request):
     app.logger.info("Intent started")
-    start_num = clova_request.slot_value("startNum")
-    end_num = clova_request.slot_value('endNum')
-    app.logger.info("startNum: {}, endNum: {}".format(str(start_num), str(end_num)))
-    res = decide_num(end_num, start_num)
-
-    message_japanese = cek.Message(message="結果は{}でした。".format(res), language="ja")
+    message_japanese = cek.Message(message="返事はこちら", language="ja")
     response = clova.response([message_japanese])
     return response
 
@@ -54,20 +49,7 @@ def end_handler(clova_request):
 # 認識できなかった場合
 @clova.handle.default
 def default_handler(request):
-    return clova.response("Sorry I don't understand! Could you please repeat?")
-
-
-def decide_num(start_num, end_num):
-    app.logger.info("decide_num started")
-    try:
-        if start_num > end_num:
-            sai_res = random.randint(int(end_num), int(start_num))
-        else:
-            sai_res = random.randint(int(start_num), int(end_num))
-        return str(sai_res)
-    except Exception as e:
-        app.logger.error("Exception at decide_num: %s", e)
-        return "分かりません"
+    return clova.response("理解できませんでした")
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
