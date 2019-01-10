@@ -7,7 +7,7 @@ import cek
 app = Flask(__name__)
 
 clova = cek.Clova(
-    application_id="com.heroku.kmiura.app",
+    application_id="com.takecian.clova.baby",
     default_language="ja",
     debug_mode=True)
 
@@ -27,13 +27,13 @@ def my_service():
 # 起動時の処理
 @clova.handle.launch
 def launch_request_handler(clova_request):
-    open_message = "こんにちは，サイコロに設定したい数字を指定してください"
+    open_message = "こんにちは、赤ちゃんをなきやませるよ"
     welcome_japanese = cek.Message(message=open_message, language="ja")
     response = clova.response([welcome_japanese])
     return response
 
 # callNumberIntentが解析されたら実行
-@clova.handle.intent("callNumber")
+@clova.handle.intent("BabyIntent")
 def number_handler(clova_request):
     app.logger.info("Intent started")
     start_num = clova_request.slot_value("startNum")
