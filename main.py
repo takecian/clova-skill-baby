@@ -37,8 +37,9 @@ def launch_request_handler(clova_request):
 @clova.handle.intent("PlaySoundIntent")
 def play_sound_intent_handler(clova_request):
     app.logger.info("Intent started")
-    message_japanese = cek.Message(message="泣き止む音楽を流すよ！", language="ja")
-    response = clova.response([message_japanese])
+    message_japanese = cek.Message(message="泣き止む音を再生します。", language="ja")
+    sound_url = cek.URL("https://s3-ap-northeast-1.amazonaws.com/takecian-clova/plastic_sound.mp3")
+    response = clova.response([message_japanese, sound_url])
     return response
 
 
