@@ -34,6 +34,14 @@ def launch_request_handler(clova_request):
     return response
 
 
+@clova.handle.intent("PlaySoundIntent")
+def send_response(clova_request):
+    app.logger.info("Intent started")
+    message_japanese = cek.Message(message="泣き止む音楽を流すよ！", language="ja")
+    response = clova.response([message_japanese])
+    return response
+
+
 @clova.handle.intent("BabyIntent")
 def send_response(clova_request):
     app.logger.info("Intent started")
@@ -57,4 +65,3 @@ if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
     app.debug = True
     app.run(host="0.0.0.0", port=port)
-    
