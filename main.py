@@ -28,7 +28,7 @@ def my_service():
 
 @clova.handle.launch
 def launch_request_handler(clova_request):
-    open_message = "こんにちは、赤ちゃんをなきやませるよ"
+    open_message = "こんにちは、赤ちゃんのお世話はお任せください"
     welcome_japanese = cek.Message(message=open_message, language="ja")
     response = clova.response([welcome_japanese])
     return response
@@ -37,9 +37,9 @@ def launch_request_handler(clova_request):
 @clova.handle.intent("PlaySoundIntent")
 def play_sound_intent_handler(clova_request):
     app.logger.info("Intent started")
-    message_japanese = cek.Message(message="泣き止む音を再生します。", language="ja")
+    message = cek.Message(message="赤ちゃんが落ち着く音を再生します。", language="ja")
     sound_url = cek.URL("https://s3-ap-northeast-1.amazonaws.com/takecian-clova/plastic_sound.mp3")
-    response = clova.response([message_japanese, sound_url])
+    response = clova.response([message, sound_url])
     return response
 
 
