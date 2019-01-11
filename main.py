@@ -39,7 +39,7 @@ def play_sound_intent_handler(clova_request):
     app.logger.info("Intent started")
     message = cek.Message(message="赤ちゃんが落ち着く音を再生します。", language="ja")
     sound_url = cek.URL("https://s3-ap-northeast-1.amazonaws.com/takecian-clova/plastic_sound.mp3")
-    response = clova.response([message, sound_url])
+    response = clova.response([message, sound_url, sound_url, sound_url, sound_url])
     return response
 
 
