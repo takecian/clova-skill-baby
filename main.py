@@ -11,10 +11,12 @@ clova = cek.Clova(
     default_language="ja",
     debug_mode=True)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def lambda_handler(event=None, context=None):
     app.logger.info('Lambda function invoked index()')
     return 'hello from Flask!'
+
 
 # /clova に対してのPOSTリクエストを受け付けるサーバーを立てる
 @app.route('/clova', methods=['POST'])
@@ -24,6 +26,7 @@ def clova():
     response.headers['Content-Type'] = 'application/json;charset-UTF-8'
     return response
 
+
 # 起動時の処理
 @clova.handle.launch
 def launch_request_handler(clova_request):
@@ -31,6 +34,7 @@ def launch_request_handler(clova_request):
     welcome_japanese = cek.Message(message=open_message, language="ja")
     response = clova.response([welcome_japanese])
     return response
+
 
 # BabyIntentが解析されたら実行
 @clova.handle.intent("BabyIntent")
@@ -40,16 +44,19 @@ def send_response(clova_request):
     response = clova.response([message_japanese])
     return response
 
+
 # 終了時
 @clova.handle.end
 def end_handler(clova_request):
     # Session ended, this handler can be used to clean up
     app.logger.info("Session ended.")
 
+
 # 認識できなかった場合
 @clova.handle.default
 def default_handler(request):
     return clova.response("理解できませんでした")
+
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
