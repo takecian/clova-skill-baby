@@ -40,15 +40,7 @@ def send_response(clova_request):
     message_japanese = cek.Message(message="泣き止む音楽を流すよ！", language="ja")
     response = clova.response([message_japanese])
     return response
-
-
-@clova.handle.intent("BabyIntent")
-def send_response(clova_request):
-    app.logger.info("Intent started")
-    message_japanese = cek.Message(message="泣き止ませるのは任せて！", language="ja")
-    response = clova.response([message_japanese])
-    return response
-
+    
 
 @clova.handle.end
 def end_handler(clova_request):
